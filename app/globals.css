@@ -1,8 +1,11 @@
 @import "tailwindcss";
 
+/* =========================
+   ROOT THEME VARIABLES
+   ========================= */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ededed;
 }
 
 @theme inline {
@@ -19,8 +22,110 @@
   }
 }
 
+/* =========================
+   BASE STYLES
+   ========================= */
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+/* =========================
+   SOFT GLOW LAYER
+   ========================= */
+.glow-layer {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 30%, rgba(0,120,255,0.14), transparent 60%),
+    radial-gradient(circle at 70% 70%, rgba(0,80,200,0.12), transparent 60%);
+  animation: glowPulse 10s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* =========================
+   FAINT GRID OVERLAY
+   ========================= */
+.grid-layer {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,120,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,120,255,0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  opacity: 0.25;
+  animation: gridMove 24s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes gridMove {
+  from { background-position: 0 0; }
+  to { background-position: 0 48px; }
+}
+
+/* =========================
+   AMBIENT MOVING LIGHT BEAMS
+   ========================= */
+.ambient-beams {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  background:
+    linear-gradient(
+      120deg,
+      rgba(0, 255, 255, 0.35),
+      rgba(0, 120, 255, 0.35),
+      rgba(0, 255, 255, 0.35)
+    );
+
+  animation: ambientMove 6s ease-in-out infinite alternate;
+}
+
+
+@keyframes ambientMove {
+  from {
+    transform: translateX(-4%) translateY(-2%);
+  }
+  to {
+    transform: translateX(4%) translateY(2%);
+  }
+}
+
+/* =========================
+   OPTIONAL SMOOTH SCROLL
+   ========================= */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Extra slow ambient drift for depth */
+.ambient-beams::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(
+      800px 400px at 60% 40%,
+      rgba(0, 140, 255, 0.08),
+      transparent 70%
+    );
+  animation: slowDrift 40s linear infinite;
+}
+
+@keyframes slowDrift {
+  from {
+    transform: translateX(-6%) translateY(-4%);
+  }
+  to {
+    transform: translateX(6%) translateY(4%);
+  }
 }
