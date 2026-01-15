@@ -1,5 +1,6 @@
+import Footer from "@/components/Footer";
+import UtsavaExperience from "@/components/UtsavaExperience";
 import Navbar from "@/components/Navbar";
-import ScheduleTimeline from "@/components/ScheduleTimeline";
 import EventsPreview from "@/components/EventsPreview";
 import Hero from "@/components/Hero";
 import Countdown from "@/components/Countdown";
@@ -8,7 +9,7 @@ import SectionDivider from "@/components/SectionDivider";
 export default function Home() {
   return (
     <main className="relative bg-black text-white overflow-hidden">
-      
+
       {/* Navbar */}
       <Navbar />
 
@@ -38,23 +39,18 @@ export default function Home() {
       <SectionDivider />
 
       {/* =========================
-          🔥 SCHEDULE TIMELINE (NEW)
+          ✨ UTSAVA EXPERIENCE
          ========================= */}
-      <section className="relative overflow-hidden py-32">
-        {/* Strong background to avoid boring look */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#061a2f] via-[#071f38] to-black" />
-
-        {/* Subtle motion */}
-        <div className="ambient-beams opacity-60" />
-
-        {/* Schedule Content */}
-        <div className="relative z-10">
-          <ScheduleTimeline />
-        </div>
-      </section>
+      <UtsavaExperience />
 
       {/* Divider */}
       <SectionDivider />
+
+      {/* =========================
+          FOOTER (FINAL)
+         ========================= */}
+      <Footer />
+
     </main>
   );
 }

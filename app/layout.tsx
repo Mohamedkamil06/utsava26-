@@ -1,4 +1,5 @@
 import FireCursor from "@/components/FireCursor";
+import StarsBackground from "@/components/StarsBackground";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -15,24 +16,30 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "UTSAVA 2026",
-  description: "A modern symposium experience where technology meets creativity.",
+  description:
+    "A modern techno-cultural symposium organized by Sri Ramakrishna Engineering College.",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {/* 🔥 Blue Fire Cursor */}
+      <body className="bg-black text-white antialiased relative overflow-x-hidden">
+        
+        {/* 🌌 GLOBAL STARS (behind everything) */}
+        <StarsBackground />
+
+        {/* 🔥 FIRE CURSOR */}
         <FireCursor />
 
-        {/* App Content */}
-        {children}
+        {/* CONTENT */}
+        <div className="relative z-10">
+          {children}
+        </div>
+
       </body>
     </html>
   );

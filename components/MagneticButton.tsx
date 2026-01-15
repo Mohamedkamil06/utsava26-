@@ -1,43 +1,54 @@
 "use client";
 
-import { motion, useMotionValue, useTransform } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
+import { ReactNode } from "react";
 
 export default function MagneticButton({
   children,
+  href,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
+  href: string;
 }) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const rotateX = useTransform(y, [-20, 20], [6, -6]);
-  const rotateY = useTransform(x, [-20, 20], [-6, 6]);
+  const springX = useSpring(x, { stiffness: 300, damping: 20 });
+  const springY = useSpring(y, { stiffness: 300, damping: 20 });
 
-  function handleMouseMove(e: React.MouseEvent<HTMLButtonElement>) {
+  function handleMouseMove(e: React.MouseEvent<HTMLAnchorElement>) {
     const rect = e.currentTarget.getBoundingClientRect();
     const offsetX = e.clientX - rect.left - rect.width / 2;
     const offsetY = e.clientY - rect.top - rect.height / 2;
 
-    x.set(offsetX * 0.9);
-    y.set(offsetY * 0.9);
-
+    x.set(offsetX * 0.35);
+    y.set(offsetY * 0.35);
   }
 
-  function handleMouseLeave() {
+  function reset() {
     x.set(0);
     y.set(0);
   }
 
   return (
-    <motion.button
+    <motion.a
+      href={href}
       onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{ x, y, rotateX, rotateY }}
-      whileHover={{ scale: 1.08 }}
+      onMouseLeave={reset}
+      style={{ x: springX, y: springY }}
       whileTap={{ scale: 0.96 }}
-      className="relative rounded-xl bg-blue-600 px-8 py-4 text-sm font-semibold tracking-wide text-white shadow-[0_0_40px_rgba(59,130,246,0.4)] transition-colors hover:bg-blue-500"
+      className="
+        inline-block
+        px-14 py-4 rounded-xl
+        text-sm tracking-[0.3em]
+        text-cyan-200
+        bg-black/60
+        border border-cyan-400/30
+        hover:shadow-[0_0_50px_rgba(0,180,255,0.45)]
+        transition-shadow
+      "
     >
       {children}
-    </motion.button>
+    </motion.a>
   );
 }

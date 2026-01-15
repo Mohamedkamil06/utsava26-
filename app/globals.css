@@ -211,3 +211,22 @@ html {
 * {
   cursor: none !important;
 }
+
+@keyframes stars-drift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: -2000px 2000px;
+  }
+}
+/* 🔥 Disable fire cursor on touch devices (mobile & tablet) */
+@media (hover: none) and (pointer: coarse) {
+  .fire-cursor {
+    display: none !important;
+  }
+
+  * {
+    cursor: auto !important;
+  }
+}
